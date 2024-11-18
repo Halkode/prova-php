@@ -1,63 +1,65 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<?php include_once __DIR__ . '/../header.php'; ?>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../assets/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <title>Listagem de Usuários</title>
-</head>
-
-<body>
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="mb-5">Listagem</h1>
-                <a href="./app/views/users/create.php" class="btn btn-primary mb-5">Criar um novo usuário</a>
+        <div class="block">
+            <div class="grid grid-cols-12 mt-10">
+                <div class="col-span-12">
+                    
+                    <h1 class="mb-5 text-center text-3xl font-bold">Listagem</h1>
+                    <a href="?action=create" class="bg-blue-700 text-white py-2 px-4 rounded float-right">Criar um novo usuário</a>
+
+                    <?php if (isset($_SESSION['error'])): ?>
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-20" role="alert">
+                            <span class="block sm:inline"><?= $_SESSION['error']; ?></span>
+                        </div>
+                        <?php unset($_SESSION['error']); ?>
+                    <?php endif; ?>
+                    
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mb-5">
-                <?php if (!empty($users)): ?>
-                    <table>
+        <div class="block mt-10">
+            <div class="relative overflow-x-auto">
+            <?php if (!empty($users)): ?>
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                         <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Email</th>
-                            <th>Telefone</th>
-                            <th>Ações</th>
+                            <th scope="col" class="px-6 py-3">ID</th>
+                            <th scope="col" class="px-6 py-3">Nome</th>
+                            <th scope="col" class="px-6 py-3">CPF</th>
+                            <th scope="col" class="px-6 py-3">Email</th>
+                            <th scope="col" class="px-6 py-3">Telefone</th>
+                            <th scope="col" class="px-6 py-3">Ações</th>
                         </tr>
-
+                    </thead>
+                    <tbody>
                         <?php foreach ($users as $user): ?>
-                            <tr>
-                                <td><?php echo $user['id']; ?></td> <!-- Corrigido para exibir o ID -->
-                                <td><?php echo htmlspecialchars($user['name']); ?></td> <!-- Corrigido para exibir o nome -->
-                                <td><?php echo $user['cpf']; ?></td> <!-- Corrigido para exibir o CPF -->
-                                <td><?php echo htmlspecialchars($user['email']); ?></td> <!-- Corrigido para exibir o email -->
-                                <td><?php echo $user['phone']; ?></td> <!-- Corrigido para exibir o telefone -->
-                                <td>
-                                    <a href="/user/edit/<?php echo $user['id']; ?>">Editar</a> |
-                                    <a href="/user/delete/<?php echo $user['id']; ?>">Excluir</a>
+                            <tr class="bg-white border-b">
+                                <td class="px-6 py-4 underline text-blue-600">
+                                    <a href="?action=show&id=<?php echo $user['idUser']; ?>">
+                                    <?php echo $user['idUser']; ?>
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4"><?php echo htmlspecialchars($user['name']); ?></td>
+                                <td class="px-6 py-4"><?php echo $user['cpf']; ?></td>
+                                <td class="px-6 py-4"><?php echo htmlspecialchars($user['email']); ?></td>
+                                <td class="px-6 py-4"><?php echo $user['phone']; ?></td>
+                                <td class="flex gap-2 py-3 items-center">
+                                    <a href="?action=edit&id=<?php echo $user['idUser']; ?>" class="bg-blue-700 text-white py-2 px-4 rounded">Editar</a> |
+                                    <a href="?action=delete&id=<?php echo $user['idUser']; ?>" class="bg-red-700 text-white py-2 px-4 rounded deleteUserButton">Excluir</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
-                    </table>
+                    </tbody>
+                </table>
                 <?php else: ?>
-                    <h2>
-                        Não foi encontrado nenhum usuario
+                    <h2 class="text-center text-red-500 font-bold">
+                        Não foi encontrado nenhum usuario.
                     </h2>
-
                 <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>
-</body>
 
-</html>
+<?php include_once __DIR__ . '/../footer.php'; ?>

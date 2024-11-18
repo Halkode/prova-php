@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__ . '/app/controllers/UserController.php';
-require __DIR__ . '/config/database.php';
+require __DIR__ . '/../app/controllers/UserController.php';
+require __DIR__ . '/../config/database.php';
 
 $pdo = ConexaoBanco::getInstance();
 $controller = new UserController($pdo);
@@ -14,7 +14,7 @@ switch ($action) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controller->create($_POST);
         }
-        require '../views/users/create.php';
+        require '../app/views/users/create.php';
         break;
     case 'edit':
         $controller->edit($id);
@@ -24,6 +24,9 @@ switch ($action) {
         break;
     case 'delete':
         $controller->delete($id);
+        break;
+    case 'show':
+        $controller->show($id);
         break;
     default:
         $controller->index();

@@ -15,7 +15,7 @@ class ConexaoBanco extends PDO
     {
         try {
             if (!isset(self::$instance)) {
-                self::$instance = new ConexaoBanco("mysql:dbname=dump_users;host=localhost", "root", "");
+                self::$instance = new ConexaoBanco("mysql:dbname=prova_php;host=localhost", "root", "");
             }
             return self::$instance;
         } catch (PDOException $error) {

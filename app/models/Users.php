@@ -23,19 +23,33 @@ class User {
     }
 
     public function getById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE idUser = ?");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
 
     public function update($id, $data) {
-        $stmt = $this->pdo->prepare("UPDATE users SET name = ?, email = ?, birth_date = ?, phone = ?, password = ? WHERE id = ?");
-        $stmt->execute([
+
+        if (!empty($data['password'])) {
+            $stmt = $this->pdo->prepare("UPDATE users SET name = ?, email = ?, birth_date = ?, phone = ?, password = ? WHERE idUser = ?");
+
+            return $stmt->execute([
+                $data['name'], 
+                $data['email'], 
+                $data['birth_date'], 
+                $data['phone'], 
+                password_hash($data['password'], PASSWORD_BCRYPT),
+                $id
+            ]);
+        }
+
+        $stmt = $this->pdo->prepare("UPDATE users SET name = ?, email = ?, birth_date = ?, phone = ? WHERE idUser = ?");
+
+        return $stmt->execute([
             $data['name'], 
             $data['email'], 
             $data['birth_date'], 
-            $data['phone'], 
-            password_hash($data['password'], PASSWORD_BCRYPT),
+            $data['phone'],
             $id
         ]);
     }
@@ -43,5 +57,17 @@ class User {
     public function delete($id) {
         $stmt = $this->pdo->prepare("DELETE FROM users WHERE idUser = ?");
         $stmt->execute([$id]);
+    }
+
+    public function checkEmail($email) {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->fetch();
+    }
+
+    public function checkCpf($cpf) {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE cpf = ?");
+        $stmt->execute([$cpf]);
+        return $stmt->fetch();
     }
 }

@@ -1,8 +1,8 @@
 -- Cria o banco de dados se ele ainda não existir
-CREATE DATABASE IF NOT EXISTS dump_users CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS prova_php CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- Usando dump_users
-USE dump_users;
+-- Usando prova_php
+USE prova_php;
 
 -- Criando tabela `users`
 CREATE TABLE `users` (

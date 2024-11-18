@@ -10,23 +10,25 @@
 
 1. Clone o projeto em seu ambiente de desenvolvimento e acesse via cli a pasta que você clonou o projeto.
 
-2. Instale as Dependências do projeto utilizando o comando a seguir:
+2. Na pasta database importe o script dump_users.sql no seu SGBD para criar o banco de dados e as tabelas.
+
+3. Instale as Dependências do projeto utilizando o comando a seguir:
 
 ```bash
 npm install
 ```
 
-3. Execute na pasta o seguinte comando PHP para inicializar o servidor php
+4. Execute na pasta o seguinte comando PHP para inicializar o servidor php
 
 ```bash
 php -S localhost:8000 -t public
 ```
 
-4. Execute o compilador de JS e SCSS
+5. Execute o compilador de JS e SCSS
 ```bash
 npm run dev
 ```
 
-5. Acesse No seu navegador a url: 
+6. Acesse No seu navegador a url: 
 
 [http://localhost:3000/](http://localhost:3000/)
